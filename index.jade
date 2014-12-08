@@ -18,10 +18,10 @@ html(lang='en')
     header.caption
       h1= title
       h2= subtitle
-    section.slide.shout(data-timing="3")
+    section.slide.shout(data-timing="30")
       div
         h2=title
-    section.slide(data-timing="3")
+    section.slide(data-timing="30")
       div
         h2 Homework Club Times
         table#times
@@ -37,7 +37,7 @@ html(lang='en')
               +check_stage(event.stage1)
               +check_stage(event.stage2)
     each map in deadlineMaps
-      section.slide.cover.deadlineMap(data-timing="3")
+      section.slide.cover.deadlineMap(data-timing="30")
         div
           iframe(src=map scrolling="no")
     script(src='assets/vendor/shower-core/shower.min.js')
