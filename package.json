@@ -1,6 +1,6 @@
 {
   "name": "detention",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Homework Club wall fluff",
   "main": "Gruntfile.js",
   "scripts": {
