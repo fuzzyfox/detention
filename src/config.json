@@ -1,0 +1,13 @@
+{
+  "title": "Homework Club",
+  "subtitle": "School of Computing",
+  "author": "with ♥ from your fellow students",
+  "times": [
+    { "day": "Monday",    "time": "10:00 - 12:00", "stage1": false, "stage2": true  },
+    { "day": "Tuesday",   "time": "16:00 - 18:00", "stage1": true,  "stage2": false },
+    { "day": "Wednesday", "time": "11:00 - 13:00", "stage1": false, "stage2": true  },
+    { "day": "Wednesday", "time": "14:00 - 16:00", "stage1": true,  "stage2": false },
+    { "day": "Thursday",  "time": "14:00 - 16:00", "stage1": true,  "stage2": true  },
+    { "day": "Friday",    "time": "15:00 - 17:00", "stage1": true,  "stage2": false }
+  ]
+}

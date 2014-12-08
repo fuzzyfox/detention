@@ -1,0 +1,42 @@
+doctype html
+html(lang='en')
+  head
+    title= title
+    link(rel='stylesheet', href='styles/shower-bright.css')
+    if dist
+      link(rel='stylesheet', href='styles/main.min.css')
+    else
+      link(rel='stylesheet', href='styles/main.css')
+  body.list
+    header.caption
+      h1= title
+      h2= subtitle
+    section.slide.shout
+      div
+        h2=title
+    section.slide
+      div
+        h2 Homework Club Times
+        table#times
+          tr
+            td Day
+            td Time
+            td Stage 1
+            td Stage 2
+          each event in times
+            tr
+              td= event.day
+              td= event.time
+              if event.stage1
+                td ✔
+              else
+                td
+              if event.stage2
+                td ✔
+              else
+                td
+    script(src='js/shower.min.js')
+    if dist
+      script(src='js/main.min.js')
+    else
+      script(src='js/main.js')

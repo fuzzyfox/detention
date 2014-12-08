@@ -1,0 +1,13 @@
+// bower:scss
+// endbower
+#times tr {
+  &:first-child {
+    font-weight: bold;
+  }
+
+  td {
+    &:nth-child(3), &:nth-child(4) {
+      text-align: center;
+    }
+  }
+}
