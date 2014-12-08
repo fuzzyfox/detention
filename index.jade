@@ -8,6 +8,7 @@ mixin check_stage(stage)
 doctype html
 html(lang='en')
   head
+    meta(charset='utf-8')
     title= title
     link(rel='stylesheet', href='assets/vendor/shower-bright/styles/screen.css')
     if prod
@@ -29,7 +30,7 @@ html(lang='en')
             td Day
             td Time
             td Stage 1
-            td Stage 2    
+            td Stage 2
           each event in times
             tr
               td= event.day
