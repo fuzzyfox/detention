@@ -1,0 +1,8 @@
+{
+  "name": "homework-club",
+  "dependencies": {
+    "shower-core": "~1.0.7",
+    "shower-bright": "~1.0.11",
+    "font-awesome": "~4.2.0"
+  }
+}
