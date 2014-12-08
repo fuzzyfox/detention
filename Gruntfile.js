@@ -86,9 +86,22 @@ module.exports = function(grunt) {
         options: { livereload: true },
         files: ['assets/css/**', 'assets/js/**', 'index.html']
       }
+    },
+
+    bump: {
+      options: {
+        files: [ 'package.json', 'bower.json' ],
+        commit: true,
+        commitMessage: 'Version updated to v%VERSION%',
+        commitFiles: [ 'package.json', 'bower.json' ],
+        creatTag: true,
+        tagName: 'v%VERSION%',
+        push: false
+      }
     }
   });
 
+  grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-contrib-sass');
