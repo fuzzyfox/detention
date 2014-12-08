@@ -1,5 +1,8 @@
 node_modules/
-bower_components/
 .sass-cache/
-build/
-dist/
+assets/vendor
+
+index.html
+assets/css
+assets/js/*.min.js
+*.map

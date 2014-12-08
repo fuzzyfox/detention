@@ -1,115 +1,101 @@
 module.exports = function(grunt) {
-  var dirs = {
-    src: 'src',
-    build: 'build',
-    dist: 'dist'
-  };
+  var jadeData = require('./config.json');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    dirs: dirs,
+
+    connect: {
+      serve: {
+        options: {
+          port: 8080,
+          useAvailablePort: true
+        }
+      }
+    },
+
     jade: {
-      build: {
+      dev: {
         options: {
           pretty: true,
           data: function() {
-            data = require('./' + dirs.src + '/config.json');
+            var data = JSON.parse(JSON.stringify(jadeData));
             data.debug = true;
-            data.dist = false;
+            data.prod = false;
             return data;
           }
         },
-        files: { '<%= dirs.build %>/index.html': '<%= dirs.src %>/index.jade' }
+        files: { './index.html': './index.jade' }
       },
-      dist: {
+      prod: {
         options: {
-          pretty: false,
+          pretty: true,
           data: function() {
-            data = require('./' + dirs.src + '/config.json');
-            data.debug = true;
-            data.dist = true;
+            var data = JSON.parse(JSON.stringify(jadeData));
+            data.debug = false;
+            data.prod = true;
             return data;
           }
         },
-        files: { '<%= dirs.dist %>/index.html': '<%= dirs.src %>/index.jade' }
+        files: { './index.html': './index.jade' }
       }
     },
 
     sass: {
-      build: {
+      dev: {
         options: {
           style: 'expanded',
           debugInfo: true,
           lineNumbers: true,
           trace: true
         },
-        files: { '<%= dirs.build %>/styles/main.css': '<%= dirs.src %>/scss/main.scss' }
+        files: { 'assets/css/main.css': 'assets/scss/main.scss' }
       },
-      dist: {
+      prod: {
         options: {
           style: 'compressed',
           debugInfo: false,
           lineNumbers: false,
-          trace: false
+          trace: false,
+          sourcemap: 'auto'
         },
-        files: { '<%= dirs.dist %>/styles/main.min.css': '<%= dirs.src %>/scss/main.scss' }
+        files: { 'assets/css/main.min.css': 'assets/scss/main.scss' }
       }
     },
 
-    copy: {
-      build: {
-        files: [
-          { expand: true, flatten: true, src: ['bower_components/*/fonts/**'], dest: '<%= dirs.build %>/fonts/', filter: 'isFile' },
-          { '<%= dirs.build %>/styles/shower-bright.css': 'bower_components/shower-bright/styles/screen.css' },
-          { '<%= dirs.build %>/js/shower.min.js': 'bower_components/shower-core/shower.min.js' },
-          { expand: true, cwd: "<%= dirs.src %>/assets/", src: ['**'], dest: '<%= dirs.build %>/assets/' }
-        ]
-      },
-      dist: {
-        files: [
-          { expand: true, flatten: true, src: ['bower_components/*/fonts/**'], dest: '<%= dirs.dist %>/fonts/', filter: 'isFile' },
-          { '<%= dirs.dist %>/styles/shower-bright.css': 'bower_components/shower-bright/styles/screen.css' },
-          { '<%= dirs.dist %>/js/shower.min.js': 'bower_components/shower-core/shower.min.js' },
-          { expand: true, cwd: "<%= dirs.src %>/assets/", src: ['**'], dest: '<%= dirs.dist %>/assets/' }
-        ]
+    uglify: {
+      prod: {
+        options: {
+          mangle: false,
+          compress: true,
+          sourceMap: true
+        },
+        files: { 'assets/js/main.min.js': 'assets/js/main.js' }
       }
     },
 
     watch: {
       jade: {
-        files: ['<%= dirs.src %>/index.jade', '<%= dirs.src %>/config.json'],
-        tasks: ['jade:build']
+        files: ['index.jade', 'config.json'],
+        tasks: ['jade:dev']
       },
       sass: {
-        files: ['<%= dirs.src %>/scss/main.scss'],
-        tasks: ['sass:build']
-      },
-      assets: {
-        files: [
-          '<%= dirs.src %>/assets/**',
-          'bower_components/*/fonts/**'
-        ],
-        tasks: ['copy:build']
+        files: ['assets/scss/*.scss'],
+        tasks: ['sass:dev']
       },
       livereload: {
         options: { livereload: true },
-        files: ['<%= dirs.build %>/**/*']
+        files: ['assets/css/**', 'assets/js/**', 'index.html']
       }
-    },
-
-    clean: {
-      build: ['<%= dirs.build %>'],
-      dist: ['<%= dirs.dist %>']
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('default', ['build', 'watch']);
-  grunt.registerTask('build', ['clean:build', 'jade:build', 'sass:build', 'copy:build']);
-  grunt.registerTask('dist',  ['clean:dist',  'jade:dist',  'sass:dist',  'copy:dist' ]);
+  grunt.registerTask('default', ['serve']);
+  grunt.registerTask('serve', ['sass:dev', 'jade:dev', 'connect', 'watch']);
+  grunt.registerTask('prod', ['sass:prod', 'uglify', 'jade:prod' ]);
 }

@@ -9,19 +9,19 @@ doctype html
 html(lang='en')
   head
     title= title
-    link(rel='stylesheet', href='styles/shower-bright.css')
-    if dist
-      link(rel='stylesheet', href='styles/main.min.css')
+    link(rel='stylesheet', href='assets/vendor/shower-bright/styles/screen.css')
+    if prod
+      link(rel='stylesheet', href='assets/css/main.min.css')
     else
-      link(rel='stylesheet', href='styles/main.css')
+      link(rel='stylesheet', href='assets/css/main.css')
   body.list
     header.caption
       h1= title
       h2= subtitle
-    section.slide.shout
+    section.slide.shout(data-timing="3")
       div
         h2=title
-    section.slide
+    section.slide(data-timing="3")
       div
         h2 Homework Club Times
         table#times
@@ -36,8 +36,12 @@ html(lang='en')
               td= event.time
               +check_stage(event.stage1)
               +check_stage(event.stage2)
-    script(src='js/shower.min.js')
-    if dist
-      script(src='js/main.min.js')
+    each map in deadlineMaps
+      section.slide.cover.deadlineMap(data-timing="3")
+        div
+          iframe(src=map scrolling="no")
+    script(src='assets/vendor/shower-core/shower.min.js')
+    if prod
+      script(src='assets/js/main.min.js')
     else
-      script(src='js/main.js')
+      script(src='assets/js/main.js')
