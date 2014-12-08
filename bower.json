@@ -3,7 +3,8 @@
   "version": "1.1.0",
   "homepage": "https://github.com/sapphire-robot/detention",
   "authors": [
-    "Joe Harrison <joehazzers@gmail.com>"
+    "Joe Harrison <joehazzers@gmail.com>",
+    "William Duyck <fuzzyfox0@gmail.com>"
   ],
   "description": "Projector fluff for homework club",
   "license": "MPL-2",
