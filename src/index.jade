@@ -1,3 +1,10 @@
+//- Check mark mixin
+mixin check_stage(stage)
+  if stage
+    td ✔
+  else
+    td
+
 doctype html
 html(lang='en')
   head
@@ -22,19 +29,13 @@ html(lang='en')
             td Day
             td Time
             td Stage 1
-            td Stage 2
+            td Stage 2    
           each event in times
             tr
               td= event.day
               td= event.time
-              if event.stage1
-                td ✔
-              else
-                td
-              if event.stage2
-                td ✔
-              else
-                td
+              +check_stage(event.stage1)
+              +check_stage(event.stage2)
     script(src='js/shower.min.js')
     if dist
       script(src='js/main.min.js')

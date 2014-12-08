@@ -1,0 +1,44 @@
+.list .slide {
+  &:hover {
+    &:before {
+      box-shadow: 0 0 0 $list-border-width $colour-kent-red;
+      //box-shadow: 0 0 0 1px $colour-kent-blue,0 0 0 12px rgba(255,255,255,.5);
+    }
+  }
+  &:target {
+    &:before {
+      box-shadow: 0 0 0 $list-border-width $colour-kent-blue;
+    }
+
+    &:after {
+      color: $colour-kent-blue;
+    }
+  }
+}
+
+.slide {
+  &:after {
+    color: darken($colour-kent-red, 25%);
+  }
+
+  &.shout {
+    background: $colour-kent-blue;
+  }
+
+  h2 {
+    color: $colour-kent-blue;
+  }
+
+  table {
+    tr {
+      border-bottom: 1px solid $colour-kent-blue;
+
+      &:first-child {
+        color: $colour-kent-blue;
+      }
+    }
+    td {
+      background: linear-gradient(to top, $colour-kent-blue, $colour-kent-blue $table-row-border-width, transparent $table-row-border-width, transparent) repeat-x;
+    }
+  }
+}
